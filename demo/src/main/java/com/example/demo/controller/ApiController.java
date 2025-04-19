@@ -26,15 +26,9 @@ public class ApiController {
         return ResponseEntity.status(401).body("Invalid credentials");
     }
 
-    @GetMapping("/test")
-    public String test() {
-        return "Hallo!";
-    }
-
     @GetMapping("/validate")
     public ResponseEntity<?> validate(@RequestHeader("Authorization") String authHeader) {
-        String token = authHeader.substring(7);
-        boolean isValid = jwtUtil.validateToken(token);
+        boolean isValid = jwtUtil.validateToken(authHeader.substring(7));
         return ResponseEntity.ok(isValid ? "Valid" : "Invalid");
     }
 
